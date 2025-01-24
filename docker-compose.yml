@@ -20,6 +20,11 @@ services:
     networks:
       - infra-network
       - nexus-network
+    environment:
+      NEXUS_DATASTORE_NEXUS_JDBCURL: jdbc:postgresql://nexus-postgres:5432/nexus
+      NEXUS_DATASTORE_NEXUS_USERNAME: nexus
+      NEXUS_DATASTORE_NEXUS_PASSWORD: nexus
+
   postgres:
     container_name: nexus-postgres
     image: postgres:17
