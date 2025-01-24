@@ -1,8 +1,6 @@
 networks:
   infra-network:
     external: true
-  nexus-network:
-    external: false
 
 volumes:
   nexus3-72-data:
@@ -19,20 +17,3 @@ services:
       - nexus3-72-data:/nexus-data
     networks:
       - infra-network
-      - nexus-network
-    environment:
-      NEXUS_DATASTORE_NEXUS_JDBCURL: jdbc:postgresql://nexus-postgres:5432/nexus
-      NEXUS_DATASTORE_NEXUS_USERNAME: nexus
-      NEXUS_DATASTORE_NEXUS_PASSWORD: nexus
-
-  postgres:
-    container_name: nexus-postgres
-    image: postgres:17
-    restart: always
-    environment:
-      POSTGRES_USER: nexus
-      POSTGRES_PASSWORD: nexus
-      POSTGRES_DB: nexus
-    networks:
-      - infra-network
-      - nexus-network
