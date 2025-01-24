@@ -1,0 +1,31 @@
+networks:
+  infra-network:
+    external: true
+  nexus-network:
+    external: false
+
+volumes:
+  nexus3-72-data:
+    external: true
+
+services:
+  nexus:
+    container_name: nexus
+    image: sonatype/nexus3:3.76.0
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus3-72-data:/nexus-data
+    networks:
+      - infra-network
+      - nexus-network
+  postgres:
+    container_name: nexus-postgres
+    image: postgres:17
+    environment:
+      POSTGRES_USER: nexus
+      POSTGRES_PASSWORD: nexus
+      POSTGRES_DB: nexus
+    networks:
+      - infra-network
+      - nexus-network
